@@ -26,6 +26,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj" />
+    <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
+    <ProjectReference Include="..\WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj" />
     <ProjectReference Include="..\WhatNext.Communication.Web\WhatNext.Communication.Web.csproj" />
   </ItemGroup>
 
