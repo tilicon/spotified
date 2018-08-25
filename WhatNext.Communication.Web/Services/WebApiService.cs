@@ -1,5 +1,7 @@
 ﻿namespace WhatNext.Communication.Web.Services
 {
+    using Contracts.Exceptions;
+    using Contracts.Services;
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
@@ -7,8 +9,6 @@
     using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
-    using Contracts.Models;
-    using Contracts.Services;
 
     public class WebApiService : IWebApiService
     {
@@ -30,7 +30,7 @@
             _uriBuilder = new UriBuilder(apiBaseUri);
         }
 
-        public async Task<WebApiResult<T>> GetAsync<T>(string path, string query = "", CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<T> GetAsync<T>(string path, string query = "", CancellationToken cancellationToken = default(CancellationToken))
         {
             var uri = MakeUri(path, query);
             var result = await _httpClient.GetAsync(uri, cancellationToken);
@@ -47,30 +47,27 @@
             return _uriBuilder.Uri;
         }
 
-        private WebApiResult<T> GenerateWebResult<T>(string data, HttpResponseMessage result)
+        private T GenerateWebResult<T>(string data, HttpResponseMessage result)
         {
-            var webResult = new WebApiResult<T> {StatusCode = result.StatusCode};
-            if (result.IsSuccessStatusCode)
-                webResult.Data = typeof(T) == typeof(string)
-                    ? (T) Convert.ChangeType(data, typeof(T))
-                    : GetDataObject(data, webResult);
+            result.EnsureSuccessStatusCode();
 
-            return webResult;
+            return typeof(T) == typeof(string)
+                ? (T) Convert.ChangeType(data, typeof(string))
+                : GetDataObject<T>(data);
         }
 
-        private static T GetDataObject<T>(string data, WebApiResult<T> webResult)
+        private static T GetDataObject<T>(string data)
         {
             var dataObject = JsonConvert.DeserializeObject<T>(data);
-            webResult.Data = dataObject;
             return dataObject;
         }
 
-        public Task<WebApiResult<T>> PostJsonAsync<T>(string path, object dataObject, CancellationToken cancellationToken)
+        public Task<T> PostJsonAsync<T>(string path, object dataObject, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<WebApiResult<T>> PostFormAsync<T>(string path, IEnumerable<KeyValuePair<string, string>> dataObject, CancellationToken cancellationToken)
+        public async Task<T> PostFormAsync<T>(string path, IEnumerable<KeyValuePair<string, string>> dataObject, CancellationToken cancellationToken)
         {
             var requestUri = MakeUri(path, null);
             var content = dataObject != null ? new FormUrlEncodedContent(dataObject) : null;

@@ -1,13 +1,17 @@
 namespace WhatNext.Communication.Web.Spotify.Tests
 {
-    using System;
-    using System.Threading;
+    using Contracts.Models;
     using Contracts.Services;
     using Moq;
-    using Xunit;
     using Services;
-
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Web.Contracts.Exceptions;
     using Web.Contracts.Services;
+    using Xunit;
 
     public class SpotifyServiceTests
     {
@@ -25,6 +29,7 @@ namespace WhatNext.Communication.Web.Spotify.Tests
         {
             Assert.Throws<ArgumentNullException>(() => new SpotifyService(null, null));
         }
+
         [Fact]
         public void Should_throw_exception_when_not_injecting_an_authorization_service()
         {
@@ -38,9 +43,37 @@ namespace WhatNext.Communication.Web.Spotify.Tests
         }
 
         [Fact]
-        public void Should()
+        public async Task Should_pass_authorization_when_response_is_received()
         {
-            _spotifyService.AuthorizeAsync(CancellationToken.None);
+            //arrange
+            var webApiLibraryService = new Mock<IWebApiService>();
+            var webApiAuthorizationService = new Mock<IWebApiAuthorizationService>();
+
+            webApiAuthorizationService
+                .Setup(s => s
+                    .PostFormAsync<AuthorizationResponse>(It.IsAny<string>(), It.IsAny<IEnumerable<KeyValuePair<string, string>>>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new AuthorizationResponse
+                {
+                    AccessToken = "1234",
+                    TokenType = "Bearer",
+                });
+
+            webApiLibraryService
+                .Setup(s => s.GetAsync<CategoryResponse>(It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None))
+                .ReturnsAsync(new CategoryResponse
+                {
+                    CategoriesInformation = new CategoriesInformation
+                    {
+                        Categories = Enumerable.Empty<Category>(),
+                    },
+                });
+            var spotifyService = new SpotifyService(webApiLibraryService.Object, webApiAuthorizationService.Object);
+
+            //act
+            var actual = await spotifyService.ListCategoriesAsync(CancellationToken.None);
+
+            //assert
+            Assert.NotNull(actual);
         }
     }
 }

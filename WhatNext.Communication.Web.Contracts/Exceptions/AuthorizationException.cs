@@ -1,10 +1,10 @@
-﻿namespace WhatNext.Communication.Web.Spotify.Exceptions
+﻿namespace WhatNext.Communication.Web.Contracts.Exceptions
 {
     using System;
     using System.Runtime.Serialization;
 
     [Serializable]
-    internal class AuthorizationException : Exception
+    public class AuthorizationException : Exception
     {
         public AuthorizationException()
         {
