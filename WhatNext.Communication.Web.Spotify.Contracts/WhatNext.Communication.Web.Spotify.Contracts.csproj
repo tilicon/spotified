@@ -9,4 +9,8 @@
     <PackageReference Include="SonarAnalyzer.CSharp" Version="7.4.0.6452" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj" />
+  </ItemGroup>
+
 </Project>

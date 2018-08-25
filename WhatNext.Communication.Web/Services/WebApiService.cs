@@ -5,11 +5,10 @@
     using System.Collections.Generic;
     using System.Net.Http;
     using System.Net.Http.Headers;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using WhatNext.Communication.Web.Contracts.Models;
-    using WhatNext.Communication.Web.Contracts.Services;
+    using Contracts.Models;
+    using Contracts.Services;
 
     public class WebApiService : IWebApiService
     {
@@ -22,7 +21,7 @@
             InitializeWebApiService(apiBaseUri);
         }
 
-        public void InitializeWebApiService(Uri apiBaseUri)
+        private void InitializeWebApiService(Uri apiBaseUri)
         {
             _httpClient = new HttpClient
             {
@@ -39,7 +38,7 @@
 
             return GenerateWebResult<T>(data, result);
         }
-        
+
         private Uri MakeUri(string path, string query)
         {
             _uriBuilder.Path = path;
@@ -50,10 +49,10 @@
 
         private WebApiResult<T> GenerateWebResult<T>(string data, HttpResponseMessage result)
         {
-            var webResult = new WebApiResult<T> { StatusCode = result.StatusCode };
+            var webResult = new WebApiResult<T> {StatusCode = result.StatusCode};
             if (result.IsSuccessStatusCode)
                 webResult.Data = typeof(T) == typeof(string)
-                    ? (T)Convert.ChangeType(data, typeof(T))
+                    ? (T) Convert.ChangeType(data, typeof(T))
                     : GetDataObject(data, webResult);
 
             return webResult;
@@ -91,8 +90,7 @@
 
         public void SetAuthorizationHeader(string tokenType, string accessToken)
         {
-            var accessTokenB64 = Convert.ToBase64String(Encoding.ASCII.GetBytes(accessToken));
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessTokenB64);
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
         }
     }
 }

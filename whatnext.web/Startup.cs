@@ -1,13 +1,15 @@
 namespace WhatNext.Web
 {
-    using Communication.Web.Spotify.Contracts.Services;
+    using System;
+    using Communication.Web.Contracts.Services;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.AngularCli;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using WhatNext.Communication.Web.Spotify.Contracts;
+    using Communication.Web.Services;
+    using Communication.Web.Spotify.Contracts.Services;
     using WhatNext.Communication.Web.Spotify.Services;
 
     public class Startup
@@ -24,6 +26,8 @@ namespace WhatNext.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddSingleton<IWebApiAuthorizationService>(new WebApiAuthorizationService(new Uri("https://accounts.spotify.com"), "Basic", "OTk2ZDAwMzc2ODA1NDRjOTg3Mjg3YTliMDQ3MGZkYmI6NWEzYzkyMDk5YTMyNGI4ZjllNDVkNzdlOTE5ZmVjMTM="));
+            services.AddSingleton<IWebApiService>(new WebApiService(new Uri("https://api.spotify.com/")));
             services.AddSingleton<ISpotifyService, SpotifyService>();
 
             // In production, the Angular files will be served from this directory
