@@ -27,7 +27,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj" />
-    <ProjectReference Include="..\WhatNext.Web.Contracts\WhatNext.Web.Contracts.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
