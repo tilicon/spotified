@@ -3,10 +3,10 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Models;
 
     public interface ISpotifyService
     {
-        Task AuthorizeAsync(CancellationToken cancellationToken);
         Task<IEnumerable<string>> ListCategoriesAsync(CancellationToken cancellationToken);
     }
 }

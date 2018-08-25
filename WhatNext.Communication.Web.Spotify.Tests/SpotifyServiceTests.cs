@@ -9,13 +9,12 @@ namespace WhatNext.Communication.Web.Spotify.Tests
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Web.Contracts.Exceptions;
     using Web.Contracts.Services;
     using Xunit;
 
     public class SpotifyServiceTests
     {
-        private ISpotifyService _spotifyService;
+        private readonly ISpotifyService _spotifyService;
 
         public SpotifyServiceTests()
         {

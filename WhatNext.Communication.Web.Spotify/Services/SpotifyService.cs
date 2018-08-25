@@ -23,7 +23,7 @@
             _libraryService = libraryService ?? throw new ArgumentNullException(nameof(libraryService));
         }
 
-        public async Task AuthorizeAsync(CancellationToken cancellationToken)
+        private async Task AuthorizeAsync(CancellationToken cancellationToken)
         {
             if (_authorizationResponse != null) return;
             _authorizationResponse = null;

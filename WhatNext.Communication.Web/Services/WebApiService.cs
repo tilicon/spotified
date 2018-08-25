@@ -1,6 +1,5 @@
 ﻿namespace WhatNext.Communication.Web.Services
 {
-    using Contracts.Exceptions;
     using Contracts.Services;
     using Newtonsoft.Json;
     using System;

@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.3" />
@@ -25,10 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj" />
-    <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj" />
-    <ProjectReference Include="..\WhatNext.Communication.Web\WhatNext.Communication.Web.csproj" />
+    <ProjectReference Include="..\WhatNext.Web.Contracts\WhatNext.Web.Contracts.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
