@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Web", "whatnext.we
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web", "WhatNext.Communication.Web\WhatNext.Communication.Web.csproj", "{5D68F56C-06AC-4568-9975-FDCFCB0D8570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Communication.Web.Contracts", "WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj", "{38AEBEB8-CD4B-467F-85FD-C375E4F4A8D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web.Contracts", "WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj", "{38AEBEB8-CD4B-467F-85FD-C375E4F4A8D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Communication.Web.Spotify", "WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj", "{7146E5E6-1161-4981-971A-53A4A1046401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web.Spotify", "WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj", "{7146E5E6-1161-4981-971A-53A4A1046401}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web.Spotify.Contracts", "WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj", "{A0A0B0D4-52C4-48CF-8AA5-E34F63A03A25}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Communication.Web.Tests", "WhatNext.Communication.Web.Tests\WhatNext.Communication.Web.Tests.csproj", "{3000CD65-5387-40E3-9B84-85F5B0AC1ECB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A0A0B0D4-52C4-48CF-8AA5-E34F63A03A25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0A0B0D4-52C4-48CF-8AA5-E34F63A03A25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0A0B0D4-52C4-48CF-8AA5-E34F63A03A25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3000CD65-5387-40E3-9B84-85F5B0AC1ECB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3000CD65-5387-40E3-9B84-85F5B0AC1ECB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3000CD65-5387-40E3-9B84-85F5B0AC1ECB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3000CD65-5387-40E3-9B84-85F5B0AC1ECB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
