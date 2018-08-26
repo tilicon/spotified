@@ -1,0 +1,21 @@
+<p *ngIf="getSelectedCategoryCount() > 0;else category_selection">
+  <em>Waiting for user. Please select {{getSelectedCategoryCount()}} more categories.</em>
+</p>
+<ng-template #category_selection>
+<!--  <h1>Spotify Category Selection</h1>-->
+
+  <div class="row category-block">
+    <div class="row category-block" *ngFor="let category of selectedCategories">
+      <div class="container" style="padding: 20px; margin: auto; width: 100%;" *ngIf="category.isSelected">
+        <img width="192" height="192" src="{{ category.iconUrl }}" alt="Category Icon" />
+        <p class="horizontal-center selected-block">{{ category.name }}</p>
+      </div>
+      <div>
+        <p class="horizontal-center artist-block">Top Genre Artists</p>
+        <dl class="artist-block container">
+          <dd *ngFor="let artist of artists">{{artist.name}}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</ng-template>
