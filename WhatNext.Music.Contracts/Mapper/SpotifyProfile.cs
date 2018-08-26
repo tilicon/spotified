@@ -8,7 +8,7 @@
         public SpotifyProfile()
         {
             CreateMap<Communication.Web.Spotify.Contracts.Models.Category, Models.Category>()
-                .ForMember(core => core.IconUrl, spotify => spotify.ResolveUsing(s => s.Icons?.FirstOrDefault()?.url ?? string.Empty));
+                .ForMember(core => core.IconUrl, spotify => spotify.ResolveUsing(s => s.Icons?.FirstOrDefault()?.Url ?? string.Empty));
         }
     }
 }

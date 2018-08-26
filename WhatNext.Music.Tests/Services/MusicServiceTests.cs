@@ -1,16 +1,16 @@
-namespace WhatNext.Music.UnitTests.Services
+namespace WhatNext.Music.Tests.Services
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;
+    using System.Threading.Tasks;
     using AutoMapper;
+    using Communication.Web.Spotify.Contracts.Models;
     using Communication.Web.Spotify.Contracts.Services;
+    using Contracts.Mapper;
     using Contracts.Services;
     using Moq;
     using Music.Services;
-    using System.Threading.Tasks;
-    using Communication.Web.Spotify.Contracts.Models;
-    using Contracts.Mapper;
     using Xunit;
 
     public class MusicServiceTests
@@ -32,7 +32,7 @@ namespace WhatNext.Music.UnitTests.Services
                 {
                     new Category{Id = "rock", Name = "Rock", Icons = new List<Icon>
                     {
-                        new Icon{url = TestIconUrl}
+                        new Icon{Url = TestIconUrl}
                     }},
                     new Category{Id = "hiphop", Name = "HipHop"},
                     new Category{Id = "rnb", Name = "RnB"},

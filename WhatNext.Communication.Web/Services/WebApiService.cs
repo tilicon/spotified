@@ -76,17 +76,23 @@
             return GenerateWebResult<T>(data, result);
         }
 
-        public void Dispose()
-        {
-            if (_isDisposed) return;
-
-            _httpClient?.Dispose();
-            _isDisposed = true;
-        }
-
         public void SetAuthorizationHeader(string tokenType, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing || _isDisposed) return;
+
+            _httpClient?.Dispose();
+            _isDisposed = true;
         }
     }
 }
