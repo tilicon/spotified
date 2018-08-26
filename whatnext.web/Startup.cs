@@ -24,7 +24,7 @@ namespace WhatNext.Web
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
         
         [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)

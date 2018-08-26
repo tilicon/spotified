@@ -7,6 +7,7 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Model;
 
     [Route("api/[controller]")]
     [ApiController]

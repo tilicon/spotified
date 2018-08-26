@@ -61,11 +61,6 @@
             return dataObject;
         }
 
-        public Task<T> PostJsonAsync<T>(string path, object dataObject, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<T> PostFormAsync<T>(string path, IEnumerable<KeyValuePair<string, string>> dataObject, CancellationToken cancellationToken)
         {
             var requestUri = MakeUri(path, null);

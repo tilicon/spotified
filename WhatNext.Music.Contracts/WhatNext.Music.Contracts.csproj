@@ -12,4 +12,10 @@
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="JetBrains.Annotations">
+      <HintPath>..\..\..\..\Users\tilicon\.nuget\packages\jetbrains.annotations\2018.2.1\lib\netstandard2.0\JetBrains.Annotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

@@ -1,5 +1,8 @@
 ﻿namespace WhatNext.Music.Contracts.Models
 {
+    using JetBrains.Annotations;
+
+    [UsedImplicitly]
     public class Category
     {
         public string IconUrl { get; set; }

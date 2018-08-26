@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace WhatNext.Web.Contracts
+﻿namespace WhatNext.Web.Contracts.Model
 {
+    using Newtonsoft.Json;
+
     [JsonObject]
     public class Category
     {
