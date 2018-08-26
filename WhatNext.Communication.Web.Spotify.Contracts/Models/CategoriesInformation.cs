@@ -6,15 +6,23 @@
     [JsonObject]
     public class CategoriesInformation
     {
-        public string href { get; set; }
+        [JsonProperty("href")]
+        public string Href { get; set; }
 
         [JsonProperty("items")]
         public IEnumerable<Category> Categories { get; set; }
 
-        public int limit { get; set; }
-        public string next { get; set; }
-        public int offset { get; set; }
-        public object previous { get; set; }
+        [JsonProperty("limit")]
+        public int Limit { get; set; }
+
+        [JsonProperty("next")]
+        public string Next { get; set; }
+
+        [JsonProperty("offset")]
+        public int Offset { get; set; }
+
+        [JsonProperty("previous")]
+        public object Previous { get; set; }
 
         [JsonProperty("total")]
         public int Total { get; set; }

@@ -2,8 +2,8 @@
 {
     public static class ApiCalls
     {
-        public static readonly string AuthorizationPath = "api/token";
-        public static readonly string CategoriesPath = "v1/browse/categories";
-        public static readonly string CategoriesQuery = "";
+        public const string AuthorizationPath = "api/token";
+        public const string CategoriesPath = "v1/browse/categories";
+        public const string CategoriesQuery = "?offset={0}";
     }
 }

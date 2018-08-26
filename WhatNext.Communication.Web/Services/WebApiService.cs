@@ -61,11 +61,6 @@
             return dataObject;
         }
 
-        public Task<T> PostJsonAsync<T>(string path, object dataObject, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<T> PostFormAsync<T>(string path, IEnumerable<KeyValuePair<string, string>> dataObject, CancellationToken cancellationToken)
         {
             var requestUri = MakeUri(path, null);
@@ -76,17 +71,23 @@
             return GenerateWebResult<T>(data, result);
         }
 
-        public void Dispose()
-        {
-            if (_isDisposed) return;
-
-            _httpClient?.Dispose();
-            _isDisposed = true;
-        }
-
         public void SetAuthorizationHeader(string tokenType, string accessToken)
         {
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposing || _isDisposed) return;
+
+            _httpClient?.Dispose();
+            _isDisposed = true;
         }
     }
 }

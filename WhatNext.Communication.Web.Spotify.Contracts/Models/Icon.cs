@@ -1,9 +1,17 @@
 ﻿namespace WhatNext.Communication.Web.Spotify.Contracts.Models
 {
+    using Newtonsoft.Json;
+
+    [JsonObject]
     public class Icon
     {
-        public int? height { get; set; }
-        public string url { get; set; }
-        public int? width { get; set; }
+        [JsonProperty("height")]
+        public int? Height { get; set; }
+
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
+        [JsonProperty("width")]
+        public int? Width { get; set; }
     }
 }
