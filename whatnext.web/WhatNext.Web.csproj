@@ -13,6 +13,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="JetBrains.Annotations" Version="2018.2.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
@@ -27,6 +29,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj" />
+    <ProjectReference Include="..\WhatNext.Music.Contracts\WhatNext.Music.Contracts.csproj" />
+    <ProjectReference Include="..\WhatNext.Music\WhatNext.Music.csproj" />
+    <ProjectReference Include="..\WhatNext.Web.Contracts\WhatNext.Web.Contracts.csproj" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

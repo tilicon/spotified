@@ -1,11 +1,11 @@
-﻿namespace WhatNext.Communication.Web.Spotify.Contracts.Services
+﻿namespace WhatNext.Music.Contracts.Services
 {
+    using Models;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Models;
 
-    public interface ISpotifyService
+    public interface IMusicService
     {
         Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken);
     }

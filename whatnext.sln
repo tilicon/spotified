@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.27703.2018
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Web", "whatnext.web\WhatNext.Web.csproj", "{9FE7DB65-367B-465E-A1E2-71A152498EB1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Music", "WhatNext.Music\WhatNext.Music.csproj", "{109DCA06-3126-4E8E-AC55-64C7F27D09BC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Music.Contracts", "WhatNext.Music.Contracts\WhatNext.Music.Contracts.csproj", "{4F70E1DB-B796-400E-A12D-7B18BD557176}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web", "WhatNext.Communication.Web\WhatNext.Communication.Web.csproj", "{5D68F56C-06AC-4568-9975-FDCFCB0D8570}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Communication.Web.Contracts", "WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj", "{38AEBEB8-CD4B-467F-85FD-C375E4F4A8D0}"
@@ -17,6 +21,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Communication.Web.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Communication.Web.Spotify.Tests", "WhatNext.Communication.Web.Spotify.Tests\WhatNext.Communication.Web.Spotify.Tests.csproj", "{3DEA8026-491B-4DE9-81F9-75D1B97A37EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatNext.Web.Contracts", "WhatNext.Web.Contracts\WhatNext.Web.Contracts.csproj", "{E1100BC8-8286-4474-A649-6ECBD321F388}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WhatNext.Music.Tests", "WhatNext.Music.Tests\WhatNext.Music.Tests.csproj", "{F405319C-EF60-4BAC-BC86-C1D2DD286EF8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +35,14 @@ Global
 		{9FE7DB65-367B-465E-A1E2-71A152498EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE7DB65-367B-465E-A1E2-71A152498EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FE7DB65-367B-465E-A1E2-71A152498EB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{109DCA06-3126-4E8E-AC55-64C7F27D09BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{109DCA06-3126-4E8E-AC55-64C7F27D09BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{109DCA06-3126-4E8E-AC55-64C7F27D09BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{109DCA06-3126-4E8E-AC55-64C7F27D09BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F70E1DB-B796-400E-A12D-7B18BD557176}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F70E1DB-B796-400E-A12D-7B18BD557176}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F70E1DB-B796-400E-A12D-7B18BD557176}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F70E1DB-B796-400E-A12D-7B18BD557176}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D68F56C-06AC-4568-9975-FDCFCB0D8570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D68F56C-06AC-4568-9975-FDCFCB0D8570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D68F56C-06AC-4568-9975-FDCFCB0D8570}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -51,6 +67,14 @@ Global
 		{3DEA8026-491B-4DE9-81F9-75D1B97A37EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DEA8026-491B-4DE9-81F9-75D1B97A37EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DEA8026-491B-4DE9-81F9-75D1B97A37EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1100BC8-8286-4474-A649-6ECBD321F388}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1100BC8-8286-4474-A649-6ECBD321F388}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1100BC8-8286-4474-A649-6ECBD321F388}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1100BC8-8286-4474-A649-6ECBD321F388}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F405319C-EF60-4BAC-BC86-C1D2DD286EF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F405319C-EF60-4BAC-BC86-C1D2DD286EF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F405319C-EF60-4BAC-BC86-C1D2DD286EF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F405319C-EF60-4BAC-BC86-C1D2DD286EF8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

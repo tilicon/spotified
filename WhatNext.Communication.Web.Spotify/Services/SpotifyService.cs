@@ -35,13 +35,13 @@
             _authorizationResponse = response;
         }
 
-        public async Task<IEnumerable<string>> ListCategoriesAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
             await AuthorizeAsync(cancellationToken);
 
             var response = await _libraryService.GetAsync<CategoryResponse>(ApiCalls.CategoriesPath, ApiCalls.CategoriesQuery, cancellationToken);
 
-            return response.CategoriesInformation.Categories.Select(c => c.Name);
+            return response.CategoriesInformation.Categories;
         }
     }
 }

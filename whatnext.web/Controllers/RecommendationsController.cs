@@ -1,27 +1,29 @@
 ﻿namespace WhatNext.Web.Controllers
 {
+    using AutoMapper;
+    using Contracts;
     using Microsoft.AspNetCore.Mvc;
+    using Music.Contracts.Services;
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Communication.Web.Spotify.Contracts.Services;
 
     [Route("api/[controller]")]
     [ApiController]
-    public class RecommendationsController : ControllerBase
+    public class RecommendationsController : ApiControllerBase
     {
-        private readonly ISpotifyService _spotifyService;
+        private readonly IMusicService _musicService;
 
-        public RecommendationsController(ISpotifyService spotifyService)
+        public RecommendationsController(IMusicService spotifyService, IMapper mapper) : base(mapper)
         {
-            //TODO: Replace with an abstracted music service that depends on the spotify service interface
-            _spotifyService = spotifyService;
+            _musicService = spotifyService;
         }
 
         [HttpGet("categories")]
-        public async Task<IEnumerable<string>> ListCategoriesAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
-            return await _spotifyService.ListCategoriesAsync(cancellationToken);
+            var categories = await _musicService.ListCategoriesAsync(cancellationToken);
+            return Map<IEnumerable<Category>>(categories);
         }
     }
 }
