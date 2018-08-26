@@ -38,9 +38,16 @@
         {
             await AuthorizeAsync(cancellationToken);
 
-            var response = await _libraryService.GetAsync<CategoryResponse>(ApiCalls.CategoriesPath, ApiCalls.CategoriesQuery, cancellationToken);
+            var categories = new List<Category>();
+            var hasMoreCategories = true;
+            while (hasMoreCategories)
+            {
+                var response = await _libraryService.GetAsync<CategoryResponse>(ApiCalls.CategoriesPath, string.Format(ApiCalls.CategoriesQuery, categories.Count), cancellationToken);
+                categories.AddRange(response?.CategoriesInformation?.Categories);
+                hasMoreCategories = response?.CategoriesInformation?.Total > categories.Count;
+            }
 
-            return response.CategoriesInformation.Categories;
+            return categories;
         }
     }
 }
