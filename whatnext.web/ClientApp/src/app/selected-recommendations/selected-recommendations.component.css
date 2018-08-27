@@ -1,13 +1,13 @@
-li .glyphicon {
-    margin-right: 10px;
+div .glyphicon {
+  margin-right: 10px;
 }
 
 /* Highlighting rules for nav menu items */
-li.link-active a,
-li.link-active a:hover,
-li.link-active a:focus {
-    background-color: #4189C7;
-    color: white;
+div.link-active a,
+div.link-active a:hover,
+div.link-active a:focus {
+  background-color: #4189C7;
+  color: white;
 }
 
 .recommended-track-block {
@@ -16,4 +16,148 @@ li.link-active a:focus {
   padding: 5px;
   width: 192px;
   font-weight: bolder;
+}
+
+/* Highlighting rules for nav menu items */
+/* Keep the nav menu independent of scrolling and on top of other items */
+.main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+@media (min-width: 768px) {
+  /* On small screens, convert the nav menu to a vertical sidebar */
+  .main-nav {
+    height: 100%;
+    width: calc(25% - 20px);
+  }
+
+  .navbar {
+    border-radius: 0;
+    border-width: 0;
+    height: 100%;
+  }
+
+  .navbar-header { float: none; }
+
+  .navbar-collapse {
+    border-top: 1px solid #444;
+    padding: 0;
+  }
+
+  .navbar div {
+    float: none;
+    font-size: 15px;
+    margin: 6px;
+  }
+
+  .navbar div a {
+    padding: 10px 16px;
+    border-radius: 4px;
+  }
+
+  .navbar a {
+    /* If a menu item's text is too long, truncate it */
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+
+
+
+
+
+.wrapper {
+  width: 192px;
+  height: 256px;
+  margin: 10px;
+  background: #FDFEFF;
+  transition: background .6s ease;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 8px 40px darkgray;
+}
+
+.wrapper .track {
+  margin-top: 4px;
+  position: relative;
+}	
+
+.wrapper .listen-button {
+  margin-top: 4px;
+  text-align: center;
+  position: absolute;
+  bottom: 20px;
+  margin-left: 10px;
+}	
+
+.wrapper .track .name {
+    color: #2D354A;
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+  }
+		
+.wrapper .title {
+    color: #7C8097;
+    font-size: .75em;
+    font-weight: 300;
+    text-align: center;
+    padding-top: .5em;
+    padding-bottom: .7em;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+		
+.wrapper .description {
+    color: #080911;
+    font-size: 14px;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 1.3em;
+  }
+		
+  .btn {
+    color: #fff;
+    width: 130px;
+    height: 32px;
+    outline: none;
+    border: none;
+    display: block;
+    cursor: pointer;
+    font-weight: 300;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 30px;
+    box-shadow: 0 13px 26px gray, 0 3px 6px black;
+    background: lightskyblue;
+    position: absolute;
+    bottom: 10px;
+  }
+
+.button {
+  color: #fff;
+  width: 150px;
+  height: 32px;
+  outline: none;
+  border: none;
+  display: block;
+  cursor: pointer;
+  font-weight: 300;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 30px;
+  box-shadow: 0 13px 26px rgba(#000, .16), 0 3px 6px rgba(#000, .16);
+  background: lightskyblue;
+  position: absolute;
+  bottom: 10px;
+  text-decoration: none;
+  text-align: center;
+  padding: 7px;
 }
