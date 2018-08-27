@@ -1,1 +1,39 @@
 /* You can add global styles to this file, and also import other style files */
+
+.container {
+  position: relative;
+  padding: 20px;
+}
+
+.text-block {
+  position: absolute;
+  bottom: 25px;
+  opacity: 0.5;
+  background-color: white;
+  color: black;
+  width: 192px;
+  /*margin-left: -20px;*/
+}
+
+.selected-block {
+  position: absolute;
+  bottom: 25px;
+  opacity: 0.7;
+  background-color: green;
+  color: white;
+  width: 192px;
+}
+
+.horizontal-center {
+  text-align: center;
+}
+
+.vertical-center {
+  vertical-align: middle;
+}
+
+.category-block {
+  height: 100%;
+  display: inline-block;
+}
+

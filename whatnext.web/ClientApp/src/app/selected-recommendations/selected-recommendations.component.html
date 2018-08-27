@@ -1,0 +1,16 @@
+<h1>And the winners are...</h1>
+
+<p>Based on your selections and the guiding principles of this app; these are your recommended songs:</p>
+
+<div class="row category-block">
+  <div class="row category-block" *ngFor="let track of tracks">
+    <div class="container" style="padding: 20px; margin: auto; width: 100%;">
+      <div class="horizontal-center recommended-track-block">
+        <p>Track</p>
+        <p>{{ track.name }}</p>
+        <p>Artist</p>
+        <p>{{ track.artist.name }}</p>
+      </div>
+    </div>
+  </div>
+</div>

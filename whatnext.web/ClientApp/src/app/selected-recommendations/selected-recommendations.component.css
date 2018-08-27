@@ -1,0 +1,19 @@
+li .glyphicon {
+    margin-right: 10px;
+}
+
+/* Highlighting rules for nav menu items */
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+    background-color: #4189C7;
+    color: white;
+}
+
+.recommended-track-block {
+  background-color: darkorange;
+  color: black;
+  padding: 5px;
+  width: 192px;
+  font-weight: bolder;
+}
