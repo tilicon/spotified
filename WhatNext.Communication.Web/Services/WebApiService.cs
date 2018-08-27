@@ -33,8 +33,8 @@
         {
             var uri = MakeUri(path, query);
             var result = await _httpClient.GetAsync(uri, cancellationToken);
-            var data = await result.Content.ReadAsStringAsync();
 
+            var data = await result.Content.ReadAsStringAsync();
             return GenerateWebResult<T>(data, result);
         }
 
