@@ -19,6 +19,18 @@
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<Artist>> GetRecommendedArtistsByGenreAsync(string[] genreList, CancellationToken cancellationToken)
+        {
+            var artists = await _spotifyService.GetRecommendedArtistsByGenreAsync(genreList, cancellationToken);
+            return _mapper.Map<IEnumerable<Artist>>(artists);
+        }
+
+        public async Task<IEnumerable<Track>> GetRecommendedTracksByArtistAsync(string[] artistIdList, CancellationToken cancellationToken)
+        {
+            var tracks = await _spotifyService.GetRecommendedTracksByArtistAsync(artistIdList, cancellationToken);
+            return _mapper.Map<IEnumerable<Track>>(tracks);
+        }
+
         public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
             var musicCategories = await _spotifyService.ListCategoriesAsync(cancellationToken);

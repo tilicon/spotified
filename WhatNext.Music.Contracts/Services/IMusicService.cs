@@ -8,5 +8,7 @@
     public interface IMusicService
     {
         Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken);
+        Task<IEnumerable<Artist>> GetRecommendedArtistsByGenreAsync(string[] genreList, CancellationToken cancellationToken);
+        Task<IEnumerable<Track>> GetRecommendedTracksByArtistAsync(string[] artistIdList, CancellationToken cancellationToken);
     }
 }

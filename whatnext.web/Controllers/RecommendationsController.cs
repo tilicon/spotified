@@ -27,5 +27,23 @@
             var categories = await _musicService.ListCategoriesAsync(cancellationToken);
             return Map<IEnumerable<Category>>(categories.OrderBy(c => c.Name));
         }
+
+        [HttpGet("artists")]
+        public async Task<IEnumerable<Artist>> GetArtistsAsync(string genres, CancellationToken cancellationToken)
+        {
+            var genreList = genres.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            var artists = await _musicService.GetRecommendedArtistsByGenreAsync(genreList, cancellationToken);
+
+            return Map<IEnumerable<Artist>>(artists.GroupBy(a => a.Name).Select(g => g.First()).OrderBy(a => a.Name));
+        }
+
+        [HttpGet("tracks")]
+        public async Task<IEnumerable<Track>> GetTracksAsync(string artistIds, CancellationToken cancellationToken)
+        {
+            var artistIdList = artistIds.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            var tracks = await _musicService.GetRecommendedTracksByArtistAsync(artistIdList, cancellationToken);
+
+            return Map<IEnumerable<Track>>(tracks.GroupBy(a => a.Name).Select(g => g.First()).OrderBy(a => a.Name));
+        }
     }
 }

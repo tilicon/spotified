@@ -68,5 +68,21 @@
 
             return default(T);
         }
+
+        public async Task<IEnumerable<Artist>> GetRecommendedArtistsByGenreAsync(string[] genreList, CancellationToken cancellationToken)
+        {
+            var response = await GetSpotifyResultsAsync<RecommendationsResponse>(ApiCalls.RecommendationsPath, string.Format(ApiCalls.GenreSeedQuery, string.Join(',', genreList)), cancellationToken);
+
+            var trackArtists = response?.Tracks?.SelectMany(t => t.Artists);
+
+            return trackArtists;
+        }
+
+        public async Task<IEnumerable<Track>> GetRecommendedTracksByArtistAsync(string[] artistIdList, CancellationToken cancellationToken)
+        {
+            var response = await GetSpotifyResultsAsync<RecommendationsResponse>(ApiCalls.RecommendationsPath, string.Format(ApiCalls.ArtistSeedQuery, string.Join(',', artistIdList)), cancellationToken);
+
+            return response?.Tracks;
+        }
     }
 }
