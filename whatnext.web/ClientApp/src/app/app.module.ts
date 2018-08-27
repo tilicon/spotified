@@ -8,8 +8,10 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { SelectedCategoriesComponent } from "./selectedcategories/selectedcategories.component";
 import { RecommendationsComponent } from "./recommandations/recommendations.component";
+import { SelectedArtistsComponent } from "./selected-artists/selected-artists.component";
+import { SelectedCategoriesComponent } from "./selected-categories/selected-categories.component";
+import { SelectedRecommendationsComponent } from "./selected-recommendations/selected-recommendations.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RecommendationsComponent } from "./recommandations/recommendations.comp
     HomeComponent,
     FetchDataComponent,
     RecommendationsComponent,
+    SelectedArtistsComponent,
     SelectedCategoriesComponent,
+    SelectedRecommendationsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +32,9 @@ import { RecommendationsComponent } from "./recommandations/recommendations.comp
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'recommendations', component: RecommendationsComponent },
+      { path: 'selectedartists', component: SelectedArtistsComponent },
       { path: 'selectedcategories', component: SelectedCategoriesComponent },
+      { path: "selectedrecommendations", component: SelectedRecommendationsComponent },
     ])
   ],
   providers: [],

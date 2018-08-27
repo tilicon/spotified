@@ -1,33 +1,9 @@
+<h1>Spotify Music Library Browsing</h1>
 
+<p>This component demonstrates fetching data from the server.</p>
 
-  <h1>Spotify Music Library Browsing</h1>
+<p *ngIf="!categories;else content">
+  <em>Loading...</em>
+</p>
 
-  <p>This component demonstrates fetching data from the server.</p>
-
-  <p *ngIf="!categories;else content">
-    <em>Loading...</em>
-  </p>
-
-  <ng-template #content>
-    <div class="row category-block" *ngIf="categories && currentCount < 5">
-      <div class="category-block" *ngFor="let category of categories" (click)="select(category);">
-        <div class="container" style="padding: 20px; margin: auto; width: 100%;">
-          <img width="192" height="192" src="{{ category.iconUrl }}" alt="Category Icon"/>
-          <p class="horizontal-center selected-block" *ngIf="category.isSelected; else notselected">{{ category.name }}</p>
-          <ng-template #notselected>
-            <p class="horizontal-center text-block">{{ category.name }}</p>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  <!--<div class="row category-block" *ngIf="categories && currentCount == 5">
-    <div class="row" *ngFor="let category of categories">
-      <div class="container" style="padding: 20px; margin: auto; width: 100%;" *ngIf="category.isSelected">
-        <img width="192" height="192" src="{{ category.iconUrl }}" alt="Category Icon" />
-        <p class="horizontal-center selected-block">{{ category.name }}</p>
-      </div>
-    </div>
-  </div>-->
-
-<app-selectedcategories [selectedCategories]="selectedCategories"></app-selectedcategories>
+<app-selected-categories [selectedCategories]="selectedCategories"></app-selected-categories>

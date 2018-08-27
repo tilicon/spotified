@@ -1,0 +1,31 @@
+<div *ngIf="getRemainingArtistCount() > 0;else artist_selection">
+  <h1>Now select your five top picks from the list of Artists.</h1>
+  <p>
+    <em>Waiting for user. Please select {{getRemainingArtistCount()}} more artists.</em>
+  </p>
+  <div class="row category-block">
+    <div class="row category-block" *ngFor="let artist of artists" (click)="select(artist);">
+      <div class="container" style="padding: 20px; margin: auto; width: 100%;">
+        <p class="horizontal-center selected-artist-block artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
+        <ng-template #notselected>
+          <p class="horizontal-center artist-block">{{ artist.name }}</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #artist_selection>
+  <div class="row category-block">
+    <div class="row category-block" *ngFor="let artist of selectedArtists" (click)="select(artist);">
+      <div class="container" style="padding: 20px; margin: auto; width: 100%;">
+        <p class="horizontal-center selected-artist-block artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
+        <ng-template #notselected>
+          <p class="horizontal-center artist-block">{{ artist.name }}</p>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<app-selected-recommendations [selectedRecommendations]="selectedRecommendations" *ngIf="getRemainingArtistCount() === 0"></app-selected-recommendations>
