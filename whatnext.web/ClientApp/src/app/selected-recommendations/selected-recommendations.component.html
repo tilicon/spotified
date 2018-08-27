@@ -2,7 +2,7 @@
 
 <p>Based on your selections and the guiding principles of this app; these are your recommended songs:</p>
 
-<div class="row category-block" style="display: flex" >
+<div class="row category-block col-sm-9" >
   <div class="category-block" *ngFor="let track of tracks">
 
     <div class="wrapper">
@@ -12,10 +12,7 @@
         <p class="description">{{track.artist.name}}</p>
       </div>
       <div class="listen-button">
-        <button type="button" class="button" style="background: gray" *ngIf="track.previewUrl; else preview"><span class="glyphicon glyphicon-ban-circle"></span>Listen</button>
-        <ng-template #preview>
-          <a class="button" href="{{track.previewUrl}}"><span class="glyphicon glyphicon-play-circle"></span>Listen</a>
-        </ng-template>
+        <a class="button" href="{{track.previewUrl}}" target="_blank" *ngIf="track.previewUrl"><span class="glyphicon glyphicon-play-circle"></span>Preview</a>
       </div>
     </div>
 
