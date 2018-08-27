@@ -1,10 +1,11 @@
 ﻿namespace WhatNext.Web.Controllers
 {
+    using System;
     using AutoMapper;
-    using Contracts;
     using Microsoft.AspNetCore.Mvc;
     using Music.Contracts.Services;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.Model;
@@ -24,7 +25,7 @@
         public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
             var categories = await _musicService.ListCategoriesAsync(cancellationToken);
-            return Map<IEnumerable<Category>>(categories);
+            return Map<IEnumerable<Category>>(categories.OrderBy(c => c.Name));
         }
     }
 }

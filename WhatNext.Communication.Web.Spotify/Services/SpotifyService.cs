@@ -4,6 +4,8 @@
     using Contracts.Services;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
     using Web.Contracts.Services;
@@ -36,18 +38,35 @@
 
         public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
-            await AuthorizeAsync(cancellationToken);
-
             var categories = new List<Category>();
             var hasMoreCategories = true;
             while (hasMoreCategories)
             {
-                var response = await _libraryService.GetAsync<CategoryResponse>(ApiCalls.CategoriesPath, string.Format(ApiCalls.CategoriesQuery, categories.Count), cancellationToken);
+                var response = await GetSpotifyResultsAsync<CategoryResponse>(ApiCalls.CategoriesPath, string.Format(ApiCalls.CategoriesQuery, categories.Count), cancellationToken);
+
                 categories.AddRange(response?.CategoriesInformation?.Categories);
                 hasMoreCategories = response?.CategoriesInformation?.Total > categories.Count;
             }
 
             return categories;
+        }
+
+        private async Task<T> GetSpotifyResultsAsync<T>(string path, string query, CancellationToken cancellationToken)
+        {
+            await AuthorizeAsync(cancellationToken);
+
+            try
+            {
+                var response = await _libraryService.GetAsync<T>(path, query, cancellationToken);
+                return response;
+            }
+            catch (Exception exception) when (exception is HttpRequestException)
+            {
+                _authorizationResponse = null;
+                await AuthorizeAsync(cancellationToken);
+            }
+
+            return default(T);
         }
     }
 }
