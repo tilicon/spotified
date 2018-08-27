@@ -17,6 +17,18 @@ li.link-active a:focus {
   width: 192px;
 }
 
+.wrapper-artist {
+  width: 192px;
+  height: 40px;
+  margin: 10px;
+  color: black;
+  transition: background .6s ease;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 8px 40px darkgray;
+}
+
 .selected-artist-block {
   background-color: green;
+  color: white;
 }

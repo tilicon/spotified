@@ -8,5 +8,6 @@
         public string Id { get; set; }
         public string Name { get; set; }
         public Artist Artist { get; set; }
+        public string PreviewUrl { get; set; }
     }
 }

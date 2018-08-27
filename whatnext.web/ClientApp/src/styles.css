@@ -6,8 +6,8 @@
 }
 
 .text-block {
-  position: absolute;
-  bottom: 25px;
+  position: relative;
+  bottom: 40px;
   opacity: 0.5;
   background-color: white;
   color: black;
@@ -16,8 +16,8 @@
 }
 
 .selected-block {
-  position: absolute;
-  bottom: 25px;
+  position: relative;
+  bottom: 40px;
   opacity: 0.7;
   background-color: green;
   color: white;
@@ -34,6 +34,17 @@
 
 .category-block {
   height: 100%;
-  display: inline-block;
+  display: inline-table;
 }
+
+.wrapper-category {
+  width: 192px;
+  height: 192px;
+  transition: background .6s ease;
+  border-radius: 10px;
+  box-shadow: 0 8px 40px darkgray;
+  margin: 10px;
+  padding: 0;
+}
+
 

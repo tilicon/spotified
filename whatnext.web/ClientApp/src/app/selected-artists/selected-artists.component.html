@@ -6,9 +6,9 @@
   <div class="row category-block">
     <div class="row category-block" *ngFor="let artist of artists" (click)="select(artist);">
       <div class="container" style="padding: 20px; margin: auto; width: 100%;">
-        <p class="horizontal-center selected-artist-block artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
+        <p class="horizontal-center wrapper-artist selected-artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
         <ng-template #notselected>
-          <p class="horizontal-center artist-block">{{ artist.name }}</p>
+          <p class="horizontal-center wrapper-artist">{{ artist.name }}</p>
         </ng-template>
       </div>
     </div>
@@ -19,9 +19,9 @@
   <div class="row category-block">
     <div class="row category-block" *ngFor="let artist of selectedArtists" (click)="select(artist);">
       <div class="container" style="padding: 20px; margin: auto; width: 100%;">
-        <p class="horizontal-center selected-artist-block artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
+        <p class="horizontal-center wrapper-artist selected-artist-block" *ngIf="artist.isSelected; else notselected">{{ artist.name }}</p>
         <ng-template #notselected>
-          <p class="horizontal-center artist-block">{{ artist.name }}</p>
+          <p class="horizontal-center wrapper-artist">{{ artist.name }}</p>
         </ng-template>
       </div>
     </div>
