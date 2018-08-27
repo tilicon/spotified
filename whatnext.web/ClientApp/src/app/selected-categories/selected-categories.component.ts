@@ -1,9 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from "../models/category";
-import { Artist } from "../models/artist";
-import { MockArtists } from '../mock/mock-artists';
-import { MockCategories } from "../mock/mock-categories";
+//import { MockCategories } from "../mock/mock-categories";
 
 @Component({
   selector: 'app-selected-categories',
@@ -14,23 +12,21 @@ export class SelectedCategoriesComponent implements OnInit{
   @Input() selectedCategories: Category[] = [];
   setNumberOfCategories: number = 5;
   remainingCategoryCount: number = this.setNumberOfCategories - this.getSelectedCategoryCount();
-  artists: Artist[] = [];
-  selectedArtists: Artist[] = [];
   categories: Category[];
   selectedCateogries: Category[] = [];
   currentCount: number = 0;
-
-  //constructor() {
-  //  this.artists = MockArtists;
-  //}
-
+  
   ngOnInit(): void {
   }
 
-  //constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-  //  http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
-  //    this.categories = result;
-  //  }, error => console.error(error));
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
+      this.categories = result;
+    }, error => console.error(error));
+  }
+
+  //constructor() {
+  //  this.categories = MockCategories;
   //}
 
   getSelectedCategoryCount() : number {
@@ -38,10 +34,6 @@ export class SelectedCategoriesComponent implements OnInit{
       return this.setNumberOfCategories;
 
     return this.setNumberOfCategories - this.selectedCategories.length;
-  }
-
-  constructor() {
-    this.categories = MockCategories;
   }
 
   public adjustCounter(isIncreasing) {

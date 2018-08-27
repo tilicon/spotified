@@ -1,7 +1,8 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Artist } from "../models/artist";
-import { MockArtists } from '../mock/mock-artists';
+import { Category } from "../models/category";
+//import { MockArtists } from '../mock/mock-artists';
 
 @Component({
   selector: 'app-selected-artists',
@@ -9,24 +10,36 @@ import { MockArtists } from '../mock/mock-artists';
   styleUrls: ['./selected-artists.component.css']
 })
 export class SelectedArtistsComponent implements OnInit{
-  @Input() selectedArtists: Artist[] = [];
+  @Input() selectedCategories: Category[] = [];
+
+  selectedArtists: Artist[] = [];
   setNumberOfArtists: number = 5;
   artists: Artist[] = [];
 
-  constructor() {
-    this.artists = MockArtists;
-  }
+  httpClient: HttpClient;
+  baseUrl: string;
 
   ngOnInit(): void {
+    var query = "?genres=";
+    for (var i = 0; i < this.selectedCategories.length; i++) {
+      query = query.concat(this.selectedCategories[i].id, ",");
+    }
+
+    this.httpClient.get<Artist[]>(this.baseUrl + 'api/recommendations/artists' + query).subscribe(result => {
+      this.artists = result;
+    }, error => console.error(error));
   }
 
-  //constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-  //  http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
-  //    this.categories = result;
-  //  }, error => console.error(error));
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.httpClient = http;
+    this.baseUrl = baseUrl;
+  }
+
+  //constructor() {
+  //  this.artists = MockArtists;
   //}
 
-  getRemainingArtistCount() : number {
+    getRemainingArtistCount() : number {
     if (!Array.isArray(this.selectedArtists))
       return this.setNumberOfArtists;
 

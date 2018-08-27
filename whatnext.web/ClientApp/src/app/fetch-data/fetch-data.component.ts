@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from "../models/category";
-import { MockCategories } from '../mock/mock-categories';
+//import { MockCategories } from '../mock/mock-categories';
 
 @Component({
   selector: 'app-fetch-data',
@@ -14,14 +14,14 @@ export class FetchDataComponent {
   public selectedCategory: Category;
   public selectedCategories: Category[];
 
-  //constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-  //  http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
-  //    this.categories = result;
-  //  }, error => console.error(error));
-  //}
-  constructor() {
-    this.categories = MockCategories;
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
+      this.categories = result;
+    }, error => console.error(error));
   }
+  //constructor() {
+  //  this.categories = MockCategories;
+  //}
 
   public adjustCounter(isIncreasing) {
     if (isIncreasing) {

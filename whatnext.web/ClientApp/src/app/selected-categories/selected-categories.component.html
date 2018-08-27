@@ -6,7 +6,7 @@
 <div class="row category-block" *ngIf="categories && currentCount < 5">
   <div class="category-block" *ngFor="let category of categories" (click)="select(category);">
     <div class="container" style="padding: 20px; margin: auto; width: 100%;">
-      <img width="192" height="192" src="{{ category.iconUrl }}" alt="Category Icon"/>
+      <img width="192" height="192" src="{{ category.iconUrl }}" alt="Category Icon" />
       <p class="horizontal-center selected-block" *ngIf="category.isSelected; else notselected">{{ category.name }}</p>
       <ng-template #notselected>
         <p class="horizontal-center text-block">{{ category.name }}</p>
@@ -27,4 +27,5 @@
   </div>
 </ng-template>
 
-<app-selected-artists [selectedArtists]="selectedArtists" *ngIf="getSelectedCategoryCount() === 0"></app-selected-artists>
+<!--<app-selected-artists [selectedArtists]="selectedArtists" *ngIf="getSelectedCategoryCount() === 0"></app-selected-artists>-->
+<app-selected-artists [selectedCategories]="selectedCategories" *ngIf="getSelectedCategoryCount() === 0"></app-selected-artists>
