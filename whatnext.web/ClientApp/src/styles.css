@@ -25,11 +25,11 @@
 }
 
 .horizontal-center {
-  text-align: center !important;
+  text-align: center;
 }
 
 .vertical-center {
-  vertical-align: middle !important;
+  vertical-align: middle;
 }
 
 .category-block {

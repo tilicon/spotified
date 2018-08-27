@@ -1,4 +1,4 @@
-import { Component, Inject, Input } from '@angular/core';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Category } from "../models/category";
 import { Artist } from "../models/artist";
@@ -17,6 +17,9 @@ export class SelectedCategoriesComponent implements OnInit{
 
   constructor() {
     this.artists = MockArtists;
+  }
+
+  ngOnInit(): void {
   }
 
   //constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {

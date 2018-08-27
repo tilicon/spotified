@@ -4,46 +4,60 @@ export const MockCategories: Category[] = [
   {
     'iconUrl': 'https://t.scdn.co/media/derived/icon-274x274_aeeb8eb70c80e2b701b25425390a1737_0_0_274_274.jpg',
     'id': 'blues',
-    'name': 'Blues'
+    'name': 'Blues',
+    isSelected: false,
   },
   {
     "iconUrl": "https://t.scdn.co/media/derived/chill-274x274_4c46374f007813dd10b37e8d8fd35b4b_0_0_274_274.jpg",
     "id": "chill",
-    "name": "Chill"
+    "name": "Chill",
+    isSelected: false,
   },
   {
     "iconUrl": "https://t.scdn.co/media/derived/classical-274x274_abf78251ff3d90d2ceaf029253ca7cb4_0_0_274_274.jpg",
     "id": "classical",
-    "name": "Classical"
+    "name": "Classical",
+    isSelected: false,
   },
   {
     "iconUrl": "https://t.scdn.co/media/derived/comedy-274x274_d07fcbc1202f00f8684f37742d0a4f2f_0_0_274_274.jpg",
     "id": "comedy",
-    "name": "Comedy"
+    "name": "Comedy",
+    isSelected: false,
   },
-  { "iconUrl": "https://t.scdn.co/images/a2e0ebe2ebed4566ba1d8236b869241f.jpeg", "id": "country", "name": "Country" },
+  {
+    "iconUrl": "https://t.scdn.co/images/a2e0ebe2ebed4566ba1d8236b869241f.jpeg", "id": "country", "name": "Country", isSelected: false, },
   {
     "iconUrl": "https://t.scdn.co/media/derived/decades_9ad8e458242b2ac8b184e79ef336c455_0_0_274_274.jpg",
     "id": "decades",
-    "name": "Decades"
+    "name": "Decades",
+    isSelected: false,
   },
   {
     "iconUrl": "https://t.scdn.co/media/original/dinner_1b6506abba0ba52c54e6d695c8571078_274x274.jpg",
     "id": "dinner",
-    "name": "Dinner"
+    "name": "Dinner",
+    isSelected: false,
   },
   {
     "iconUrl": "https://t.scdn.co/media/derived/edm-274x274_0ef612604200a9c14995432994455a6d_0_0_274_274.jpg",
     "id": "edm_dance",
-    "name": "Electronic/Dance"
+    "name": "Electronic/Dance",
+    isSelected: false,
   },
   {
     "iconUrl":
       "https://t.scdn.co/media/original/genre-images-square-274x274_5e50d72b846a198fcd2ca9b3aef5f0c8_274x274.jpg",
     "id": "focus",
-    "name": "Focus"
+    "name": "Focus",
+    isSelected: false,
   }
 ];
+
+
+
+
+
 //  {
 //    "iconUrl": "https://t.scdn.co/media/derived/folk-274x274_ced3f75528ac61faf505863f7d7fae64_0_0_274_274.jpg",
 //    "id": "folk_americana",
