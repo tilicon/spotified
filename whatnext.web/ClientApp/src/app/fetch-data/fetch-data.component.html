@@ -1,0 +1,9 @@
+<h1>Spotify Music Library Browsing</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<p *ngIf="!categories">
+  <em>Loading...</em>
+</p>
+
+<app-selected-categories [selectedCategories]="selectedCategories"></app-selected-categories>

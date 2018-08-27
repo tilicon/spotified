@@ -1,0 +1,20 @@
+<h1>And the winners are...</h1>
+
+<p>Based on your selections and the guiding principles of this app; these are your recommended songs:</p>
+
+<div class="row category-block col-sm-9" >
+  <div class="category-block" *ngFor="let track of tracks">
+
+    <div class="wrapper">
+      <div class="track">
+        <p class="description">{{ track.name }}</p>
+        <p class="title">by</p>
+        <p class="description">{{track.artist.name}}</p>
+      </div>
+      <div class="listen-button">
+        <a class="button" href="{{track.previewUrl}}" target="_blank" *ngIf="track.previewUrl"><span class="glyphicon glyphicon-play-circle"></span>Preview</a>
+      </div>
+    </div>
+
+  </div>
+</div>

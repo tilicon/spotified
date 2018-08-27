@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WhatNext.Communication.Web.Contracts\WhatNext.Communication.Web.Contracts.csproj" />
+    <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
+    <ProjectReference Include="..\WhatNext.Music.Contracts\WhatNext.Music.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>
