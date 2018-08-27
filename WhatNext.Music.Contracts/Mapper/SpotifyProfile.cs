@@ -9,6 +9,11 @@
         {
             CreateMap<Communication.Web.Spotify.Contracts.Models.Category, Models.Category>()
                 .ForMember(core => core.IconUrl, spotify => spotify.ResolveUsing(s => s.Icons?.FirstOrDefault()?.Url ?? string.Empty));
+
+            CreateMap<Communication.Web.Spotify.Contracts.Models.Artist, Models.Artist>();
+
+            CreateMap<Communication.Web.Spotify.Contracts.Models.Track, Models.Track>()
+                .ForMember(core => core.Artist, spotify => spotify.ResolveUsing(s => s.Artists?.FirstOrDefault()));
         }
     }
 }
