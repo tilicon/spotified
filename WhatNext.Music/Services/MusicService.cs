@@ -34,6 +34,7 @@
         public async Task<IEnumerable<Category>> ListCategoriesAsync(CancellationToken cancellationToken)
         {
             var musicCategories = await _spotifyService.ListCategoriesAsync(cancellationToken);
+
             return _mapper.Map<IEnumerable<Category>>(musicCategories);
         }
     }
