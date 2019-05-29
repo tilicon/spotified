@@ -1,7 +1,6 @@
 namespace WhatNext.Communication.Web.Spotify.Tests
 {
     using Contracts.Models;
-    using Contracts.Services;
     using Moq;
     using Services;
     using System;
@@ -14,31 +13,10 @@ namespace WhatNext.Communication.Web.Spotify.Tests
 
     public class SpotifyServiceTests
     {
-        private readonly ISpotifyService _spotifyService;
-
-        public SpotifyServiceTests()
-        {
-            var webApiLibraryService = new Mock<IWebApiService>();
-            var webApiAuthorizationService = new Mock<IWebApiAuthorizationService>();
-            _spotifyService = new SpotifyService(webApiLibraryService.Object, webApiAuthorizationService.Object);
-        }
-
-        [Fact]
-        public void Should_throw_exception_when_not_injecting_any_service()
-        {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null, null));
-        }
-
-        [Fact]
-        public void Should_throw_exception_when_not_injecting_an_authorization_service()
-        {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(new Mock<IWebApiService>().Object, null));
-        }
-
         [Fact]
         public void Should_throw_exception_when_not_injecting_a_library_service()
         {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null, new Mock<IWebApiAuthorizationService>().Object));
+            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null));
         }
 
         [Fact]
@@ -46,16 +24,6 @@ namespace WhatNext.Communication.Web.Spotify.Tests
         {
             //arrange
             var webApiLibraryService = new Mock<IWebApiService>();
-            var webApiAuthorizationService = new Mock<IWebApiAuthorizationService>();
-
-            webApiAuthorizationService
-                .Setup(s => s
-                    .PostFormAsync<AuthorizationResponse>(It.IsAny<string>(), It.IsAny<IEnumerable<KeyValuePair<string, string>>>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AuthorizationResponse
-                {
-                    AccessToken = "1234",
-                    TokenType = "Bearer",
-                });
 
             webApiLibraryService
                 .Setup(s => s.GetAsync<CategoryResponse>(It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None))
@@ -66,13 +34,73 @@ namespace WhatNext.Communication.Web.Spotify.Tests
                         Categories = Enumerable.Empty<Category>(),
                     },
                 });
-            var spotifyService = new SpotifyService(webApiLibraryService.Object, webApiAuthorizationService.Object);
+            var spotifyService = new SpotifyService(webApiLibraryService.Object);
 
             //act
             var actual = await spotifyService.ListCategoriesAsync(CancellationToken.None);
 
             //assert
             Assert.NotNull(actual);
+        }
+
+        [Fact]
+        public async Task Should_fetch_recommended_artists_from_genre()
+        {
+            //arrange
+            var webApiLibraryService = new Mock<IWebApiService>();
+
+            webApiLibraryService
+                .Setup(s => s.GetAsync<RecommendationsResponse>(It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None))
+                .ReturnsAsync(new RecommendationsResponse()
+                {
+                    Tracks = new[]
+                    {
+                        new Track
+                        {
+                            Id = "1",
+                            Artists = new[] {new Artist {Id = "1", Name = "Cage the Elephant"}},
+                            Name = "Back Against the Wall",
+                        }
+                    }
+                });
+            var spotifyService = new SpotifyService(webApiLibraryService.Object);
+
+            //act
+            var actual = await spotifyService.GetRecommendedArtistsByGenreAsync(new[] {"rock"}, CancellationToken.None);
+
+            //assert
+            Assert.NotNull(actual);
+            Assert.Contains(actual, artist => artist.Id == "1" && artist.Name == "Cage the Elephant");
+        }
+
+        [Fact]
+        public async Task Should_fetch_recommended_tracks_from_artist_ids()
+        {
+            //arrange
+            var webApiLibraryService = new Mock<IWebApiService>();
+
+            webApiLibraryService
+                .Setup(s => s.GetAsync<RecommendationsResponse>(It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None))
+                .ReturnsAsync(new RecommendationsResponse()
+                {
+                    Tracks = new[]
+                    {
+                        new Track
+                        {
+                            Id = "1",
+                            Artists = new[] {new Artist {Id = "1", Name = "Cage the Elephant"}},
+                            Name = "Back Against the Wall",
+                        }
+                    }
+                });
+            var spotifyService = new SpotifyService(webApiLibraryService.Object);
+
+            //act
+            var actual = await spotifyService.GetRecommendedTracksByArtistAsync(new[] {"1"}, CancellationToken.None);
+
+            //assert
+            Assert.NotNull(actual);
+            Assert.Contains(actual, track => track.Id == "1" && track.Name == "Back Against the Wall");
         }
     }
 }

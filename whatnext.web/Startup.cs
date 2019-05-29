@@ -2,9 +2,7 @@ namespace WhatNext.Web
 {
     using AutoMapper;
     using Communication.Web.Contracts.Services;
-    using Communication.Web.Services;
     using Communication.Web.Spotify.Contracts.Services;
-    using Communication.Web.Spotify.Services;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -15,6 +13,8 @@ namespace WhatNext.Web
     using Music.Contracts.Services;
     using Music.Services;
     using System;
+    using Communication.Web.Services;
+    using Communication.Web.Spotify.Services;
 
     [UsedImplicitly]
     public class Startup
@@ -31,12 +31,17 @@ namespace WhatNext.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<IWebApiAuthorizationService>(new WebApiAuthorizationService(new Uri("https://accounts.spotify.com"), "Basic", "OTk2ZDAwMzc2ODA1NDRjOTg3Mjg3YTliMDQ3MGZkYmI6NWEzYzkyMDk5YTMyNGI4ZjllNDVkNzdlOTE5ZmVjMTM="));
-            services.AddSingleton<IWebApiService>(new WebApiService(new Uri("https://api.spotify.com/")));
+            var uriApi = Configuration.GetSection("Spotify:ApiUri").Value;
+            var uriAccounts = Configuration.GetSection("Spotify:AccountsUri").Value;
+            var tokenPath = Configuration.GetSection("Spotify:tokenPath").Value;
+            var token = Configuration.GetSection("Spotify:token").Value;
+
+            var spotifyClientHandler = new SpotifyClientHandler(uriAccounts, tokenPath, "Basic", token);
+            services.AddSingleton<IWebApiService>(new WebApiService(new Uri(uriApi), spotifyClientHandler));
             services.AddSingleton<ISpotifyService, SpotifyService>();
             services.AddScoped<IMusicService, MusicService>();
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(IMusicService), typeof(ISpotifyService), typeof(Startup));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -52,7 +57,8 @@ namespace WhatNext.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                var errorPath = Configuration.GetSection("Api:ErrorPath").Value;
+                app.UseExceptionHandler(errorPath);
                 app.UseHsts();
             }
 

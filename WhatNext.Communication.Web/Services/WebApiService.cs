@@ -15,16 +15,16 @@
         private UriBuilder _uriBuilder;
         private bool _isDisposed;
 
-        public WebApiService(Uri apiBaseUri)
+        public WebApiService(Uri apiBaseUri, HttpClientHandler httpClientHandler)
         {
-            InitializeWebApiService(apiBaseUri);
+            InitializeWebApiService(apiBaseUri, httpClientHandler);
         }
 
-        private void InitializeWebApiService(Uri apiBaseUri)
+        private void InitializeWebApiService(Uri apiBaseUri, HttpClientHandler httpClientHandler)
         {
-            _httpClient = new HttpClient
+            _httpClient = new HttpClient(httpClientHandler ?? throw new ArgumentNullException(nameof(httpClientHandler)))
             {
-                BaseAddress = apiBaseUri
+                BaseAddress = apiBaseUri,
             };
             _uriBuilder = new UriBuilder(apiBaseUri);
         }

@@ -15,9 +15,9 @@ export class FetchDataComponent {
   public selectedCategories: Category[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
-      this.categories = result;
-    }, error => console.error(error));
+    //http.get<Category[]>(baseUrl + 'api/recommendations/categories').subscribe(result => {
+    //  this.categories = result;
+    //}, error => console.error(error));
   }
   //constructor() {
   //  this.categories = MockCategories;

@@ -49,9 +49,9 @@ namespace WhatNext.Music.Tests.Services
                 .Setup(s => s.GetRecommendedTracksByArtistAsync(It.IsAny<string[]>(), It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<Track>
                 {
-                    new Track { Id = "1", Artists = artists.Where(a => a.Id == "1").ToList(), Name = "Blue October"},
-                    new Track { Id = "2", Artists = artists.Where(a => a.Id == "2").ToList(), Name = "Seven Nation Army"},
-                    new Track { Id = "3", Artists = artists.Where(a => a.Id == "3" || a.Id == "2").ToList(), Name = "Jolene"},
+                    new Track { Id = "1", Artists = artists.Where(a => a.Id == "1").ToList(), Name = "Back Against the Wall", PreviewUrl = "url1"},
+                    new Track { Id = "2", Artists = artists.Where(a => a.Id == "2").ToList(), Name = "Seven Nation Army", PreviewUrl = "url2"},
+                    new Track { Id = "3", Artists = artists.Where(a => a.Id == "3" || a.Id == "2").ToList(), Name = "Jolene", PreviewUrl = "url3"},
                 });
 
             spotifyService
@@ -67,6 +67,7 @@ namespace WhatNext.Music.Tests.Services
             var actual = categories.First();
 
             Assert.IsType<Contracts.Models.Category>(actual);
+            Assert.Contains(categories, category => category.Id == "rock" && category.Name == "Rock");
         }
 
         [Fact]
@@ -85,7 +86,7 @@ namespace WhatNext.Music.Tests.Services
             var tracks = (await _musicService.GetRecommendedTracksByArtistAsync(new [] {"1", "2", "3"}, CancellationToken.None)).ToList();
 
             Assert.Equal(3, tracks.Count);
-            Assert.Contains(tracks, t => t.Id == "2" && t.Name == "Seven Nation Army");
+            Assert.Contains(tracks, t => t.Id == "2" && t.Name == "Seven Nation Army" && t.PreviewUrl == "url2");
             Assert.Contains(tracks, t => t.Id == "3" && t.Name == "Jolene" && t.Artist.Name == "Dolly Parton" || t.Artist.Name == "The White Stripes");
         }
 
