@@ -31,12 +31,15 @@ namespace WhatNext.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<IWebApiAuthorizationService>(new WebApiAuthorizationService(new Uri("https://accounts.spotify.com"), "Basic", "OTk2ZDAwMzc2ODA1NDRjOTg3Mjg3YTliMDQ3MGZkYmI6NWEzYzkyMDk5YTMyNGI4ZjllNDVkNzdlOTE5ZmVjMTM="));
-            services.AddSingleton<IWebApiService>(new WebApiService(new Uri("https://api.spotify.com/")));
+            var uriApi = Configuration.GetSection("Spotify:ApiUri").Value;
+            var uriAccounts = Configuration.GetSection("Spotify:AccountsUri").Value;
+
+            services.AddSingleton<IWebApiAuthorizationService>(new WebApiAuthorizationService(new Uri(uriAccounts), "Basic", "OTk2ZDAwMzc2ODA1NDRjOTg3Mjg3YTliMDQ3MGZkYmI6NWEzYzkyMDk5YTMyNGI4ZjllNDVkNzdlOTE5ZmVjMTM="));
+            services.AddSingleton<IWebApiService>(new WebApiService(new Uri(uriApi)));
             services.AddSingleton<ISpotifyService, SpotifyService>();
             services.AddScoped<IMusicService, MusicService>();
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(IMusicService), typeof(ISpotifyService), typeof(Startup));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
@@ -52,7 +55,8 @@ namespace WhatNext.Web
             }
             else
             {
-                app.UseExceptionHandler("/Error");
+                var errorPath = Configuration.GetSection("Api:ErrorPath").Value;
+                app.UseExceptionHandler(errorPath);
                 app.UseHsts();
             }
 
