@@ -2,9 +2,7 @@ namespace WhatNext.Web
 {
     using AutoMapper;
     using Communication.Web.Contracts.Services;
-    using Communication.Web.Services;
     using Communication.Web.Spotify.Contracts.Services;
-    using Communication.Web.Spotify.Services;
     using JetBrains.Annotations;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -15,6 +13,8 @@ namespace WhatNext.Web
     using Music.Contracts.Services;
     using Music.Services;
     using System;
+    using Communication.Web.Services;
+    using Communication.Web.Spotify.Services;
 
     [UsedImplicitly]
     public class Startup
@@ -33,9 +33,11 @@ namespace WhatNext.Web
 
             var uriApi = Configuration.GetSection("Spotify:ApiUri").Value;
             var uriAccounts = Configuration.GetSection("Spotify:AccountsUri").Value;
+            var tokenPath = Configuration.GetSection("Spotify:tokenPath").Value;
+            var token = Configuration.GetSection("Spotify:token").Value;
 
-            services.AddSingleton<IWebApiAuthorizationService>(new WebApiAuthorizationService(new Uri(uriAccounts), "Basic", "OTk2ZDAwMzc2ODA1NDRjOTg3Mjg3YTliMDQ3MGZkYmI6NWEzYzkyMDk5YTMyNGI4ZjllNDVkNzdlOTE5ZmVjMTM="));
-            services.AddSingleton<IWebApiService>(new WebApiService(new Uri(uriApi)));
+            var spotifyClientHandler = new SpotifyClientHandler(uriAccounts, tokenPath, "Basic", token);
+            services.AddSingleton<IWebApiService>(new WebApiService(new Uri(uriApi), spotifyClientHandler));
             services.AddSingleton<ISpotifyService, SpotifyService>();
             services.AddScoped<IMusicService, MusicService>();
 

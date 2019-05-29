@@ -1,7 +1,6 @@
 namespace WhatNext.Communication.Web.Spotify.Tests
 {
     using Contracts.Models;
-    using Contracts.Services;
     using Moq;
     using Services;
     using System;
@@ -14,31 +13,10 @@ namespace WhatNext.Communication.Web.Spotify.Tests
 
     public class SpotifyServiceTests
     {
-        private readonly ISpotifyService _spotifyService;
-
-        public SpotifyServiceTests()
-        {
-            var webApiLibraryService = new Mock<IWebApiService>();
-            var webApiAuthorizationService = new Mock<IWebApiAuthorizationService>();
-            _spotifyService = new SpotifyService(webApiLibraryService.Object, webApiAuthorizationService.Object);
-        }
-
-        [Fact]
-        public void Should_throw_exception_when_not_injecting_any_service()
-        {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null, null));
-        }
-
-        [Fact]
-        public void Should_throw_exception_when_not_injecting_an_authorization_service()
-        {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(new Mock<IWebApiService>().Object, null));
-        }
-
         [Fact]
         public void Should_throw_exception_when_not_injecting_a_library_service()
         {
-            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null, new Mock<IWebApiAuthorizationService>().Object));
+            Assert.Throws<ArgumentNullException>(() => new SpotifyService(null));
         }
 
         [Fact]
@@ -46,16 +24,6 @@ namespace WhatNext.Communication.Web.Spotify.Tests
         {
             //arrange
             var webApiLibraryService = new Mock<IWebApiService>();
-            var webApiAuthorizationService = new Mock<IWebApiAuthorizationService>();
-
-            webApiAuthorizationService
-                .Setup(s => s
-                    .PostFormAsync<AuthorizationResponse>(It.IsAny<string>(), It.IsAny<IEnumerable<KeyValuePair<string, string>>>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(new AuthorizationResponse
-                {
-                    AccessToken = "1234",
-                    TokenType = "Bearer",
-                });
 
             webApiLibraryService
                 .Setup(s => s.GetAsync<CategoryResponse>(It.IsAny<string>(), It.IsAny<string>(), CancellationToken.None))
@@ -66,7 +34,7 @@ namespace WhatNext.Communication.Web.Spotify.Tests
                         Categories = Enumerable.Empty<Category>(),
                     },
                 });
-            var spotifyService = new SpotifyService(webApiLibraryService.Object, webApiAuthorizationService.Object);
+            var spotifyService = new SpotifyService(webApiLibraryService.Object);
 
             //act
             var actual = await spotifyService.ListCategoriesAsync(CancellationToken.None);
