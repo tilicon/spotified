@@ -7,8 +7,6 @@ namespace WhatNext.Communication.Web.Spotify.Contracts.Models
     [JsonObject]
     public class Category
     {
-        [JsonProperty("href")]
-        public string Url { get; set; }
         [JsonProperty("icons")]
         public IEnumerable<Icon> Icons { get; set; }
         [JsonProperty("id")]
