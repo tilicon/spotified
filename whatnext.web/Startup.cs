@@ -13,6 +13,7 @@ namespace WhatNext.Web
     using Music.Contracts.Services;
     using Music.Services;
     using System;
+    using System.Net.Http;
     using Communication.Web.Services;
     using Communication.Web.Spotify.Services;
 
@@ -31,13 +32,18 @@ namespace WhatNext.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var uriApi = Configuration.GetSection("Spotify:ApiUri").Value;
+            var uriApi = new Uri(Configuration.GetSection("Spotify:ApiUri").Value);
             var uriAccounts = Configuration.GetSection("Spotify:AccountsUri").Value;
             var tokenPath = Configuration.GetSection("Spotify:tokenPath").Value;
             var token = Configuration.GetSection("Spotify:token").Value;
 
             var spotifyClientHandler = new SpotifyClientHandler(uriAccounts, tokenPath, "Basic", token);
-            services.AddSingleton<IWebApiService>(new WebApiService(new Uri(uriApi), spotifyClientHandler));
+            var httpClient = new HttpClient(spotifyClientHandler)
+            {
+                BaseAddress = uriApi,
+            };
+
+            services.AddSingleton<IWebApiService>(new WebApiService(uriApi, httpClient));
             services.AddSingleton<ISpotifyService, SpotifyService>();
             services.AddScoped<IMusicService, MusicService>();
 

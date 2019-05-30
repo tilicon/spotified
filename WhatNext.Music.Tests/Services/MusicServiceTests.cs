@@ -63,7 +63,7 @@ namespace WhatNext.Music.Tests.Services
         [Fact]
         public async Task Should_map_web_category_to_music_category()
         {
-            var categories = await _musicService.ListCategoriesAsync(CancellationToken.None);
+            var categories = (await _musicService.ListCategoriesAsync(CancellationToken.None)).ToList();
             var actual = categories.First();
 
             Assert.IsType<Contracts.Models.Category>(actual);
@@ -73,11 +73,10 @@ namespace WhatNext.Music.Tests.Services
         [Fact]
         public async Task Should_map_web_category_first_icon_url_to_single_url()
         {
-            var expected = TestIconUrl;
             var categories = await _musicService.ListCategoriesAsync(CancellationToken.None);
             var actual = categories.First().IconUrl;
 
-            Assert.Equal(expected, actual);
+            Assert.Equal(TestIconUrl, actual);
         }
 
         [Fact]

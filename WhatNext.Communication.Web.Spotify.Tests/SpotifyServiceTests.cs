@@ -32,6 +32,7 @@ namespace WhatNext.Communication.Web.Spotify.Tests
                     CategoriesInformation = new CategoriesInformation
                     {
                         Categories = Enumerable.Empty<Category>(),
+                        Total = 0,
                     },
                 });
             var spotifyService = new SpotifyService(webApiLibraryService.Object);
@@ -41,6 +42,7 @@ namespace WhatNext.Communication.Web.Spotify.Tests
 
             //assert
             Assert.NotNull(actual);
+            Assert.False(actual.Any());
         }
 
         [Fact]
