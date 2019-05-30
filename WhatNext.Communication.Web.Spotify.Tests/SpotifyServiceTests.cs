@@ -6,8 +6,10 @@ namespace WhatNext.Communication.Web.Spotify.Tests
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Services;
     using Web.Contracts.Services;
     using Xunit;
 
@@ -103,6 +105,15 @@ namespace WhatNext.Communication.Web.Spotify.Tests
             //assert
             Assert.NotNull(actual);
             Assert.Contains(actual, track => track.Id == "1" && track.Name == "Back Against the Wall");
+        }
+
+        [Fact]
+        public async Task Should_throw_exception_on_get_when_given_null_as_parameter()
+        {
+            var clientHandler = new SpotifyClientHandler("http://localhost", "http://remotehost", "Basic", "secret");
+            var httpClient = new HttpClient(clientHandler);
+
+            await Assert.ThrowsAsync<ArgumentNullException>(() => httpClient.SendAsync(null));
         }
     }
 }
