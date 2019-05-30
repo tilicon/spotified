@@ -1,31 +1,25 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <ProjectGuid>{CBE2C279-A1D4-4536-A7B5-AEEFC9EDE777}</ProjectGuid>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <CodeAnalysisRuleSet>WhatNext.Music.Contracts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CodeAnalysisRuleSet>WhatNext.Music.Contracts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="JetBrains.Annotations">
       <HintPath>..\..\..\..\Users\tilicon\.nuget\packages\jetbrains.annotations\2018.2.1\lib\netstandard2.0\JetBrains.Annotations.dll</HintPath>
     </Reference>
   </ItemGroup>
-
 </Project>
