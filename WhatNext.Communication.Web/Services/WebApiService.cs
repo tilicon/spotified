@@ -3,33 +3,23 @@
     using Contracts.Services;
     using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
     using System.Net.Http;
-    using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
 
     public class WebApiService : IWebApiService
     {
-        private HttpClient _httpClient;
-        private UriBuilder _uriBuilder;
+        private readonly HttpClient _httpClient;
+        private readonly UriBuilder _uriBuilder;
         private bool _isDisposed;
 
-        public WebApiService(Uri apiBaseUri, HttpClientHandler httpClientHandler)
+        public WebApiService(Uri apiBaseUri, HttpClient httpClient)
         {
-            InitializeWebApiService(apiBaseUri, httpClientHandler);
+            _uriBuilder = new UriBuilder(apiBaseUri ?? throw new ArgumentNullException(nameof(apiBaseUri)));
+            _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
         }
 
-        private void InitializeWebApiService(Uri apiBaseUri, HttpClientHandler httpClientHandler)
-        {
-            _httpClient = new HttpClient(httpClientHandler ?? throw new ArgumentNullException(nameof(httpClientHandler)))
-            {
-                BaseAddress = apiBaseUri,
-            };
-            _uriBuilder = new UriBuilder(apiBaseUri);
-        }
-
-        public async Task<T> GetAsync<T>(string path, string query = "", CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<T> GetAsync<T>(string path, string query = "", CancellationToken cancellationToken = default)
         {
             var uri = MakeUri(path, query);
             var result = await _httpClient.GetAsync(uri, cancellationToken);
@@ -59,21 +49,6 @@
         {
             var dataObject = JsonConvert.DeserializeObject<T>(data);
             return dataObject;
-        }
-
-        public async Task<T> PostFormAsync<T>(string path, IEnumerable<KeyValuePair<string, string>> dataObject, CancellationToken cancellationToken)
-        {
-            var requestUri = MakeUri(path, null);
-            var content = dataObject != null ? new FormUrlEncodedContent(dataObject) : null;
-            var result = await _httpClient.PostAsync(requestUri, content, cancellationToken);
-            var data = await result.Content.ReadAsStringAsync();
-
-            return GenerateWebResult<T>(data, result);
-        }
-
-        public void SetAuthorizationHeader(string tokenType, string accessToken)
-        {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, accessToken);
         }
 
         public void Dispose()

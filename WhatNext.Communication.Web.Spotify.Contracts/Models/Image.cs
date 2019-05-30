@@ -1,7 +1,9 @@
 ﻿namespace WhatNext.Communication.Web.Spotify.Contracts.Models
 {
+    using System.Diagnostics.CodeAnalysis;
     using Newtonsoft.Json;
 
+    [ExcludeFromCodeCoverage]
     [JsonObject]
     public class Image
     {
