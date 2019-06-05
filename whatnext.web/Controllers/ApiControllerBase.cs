@@ -1,5 +1,6 @@
 ﻿namespace WhatNext.Web.Controllers
 {
+    using System;
     using AutoMapper;
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@
 
         public ApiControllerBase(IMapper mapper)
         {
-            _mapper = mapper;
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
         internal T Map<T>(object source)

@@ -18,7 +18,7 @@
 
         public RecommendationsController(IMusicService spotifyService, IMapper mapper) : base(mapper)
         {
-            _musicService = spotifyService;
+            _musicService = spotifyService ?? throw new ArgumentNullException(nameof(spotifyService));
         }
 
         [HttpGet("categories")]

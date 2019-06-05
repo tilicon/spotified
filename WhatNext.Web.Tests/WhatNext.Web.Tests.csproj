@@ -1,14 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+
     <IsPackable>false</IsPackable>
-    <ApplicationIcon />
-    <OutputType>Library</OutputType>
-    <StartupObject />
-    <SonarQubeTestProject>True</SonarQubeTestProject>
-    <ProjectGuid>{0AC51A6F-7CAC-48B9-9992-A1A42A306140}</ProjectGuid>
   </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="8.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />
     <PackageReference Include="Moq" Version="4.11.0" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
@@ -18,7 +17,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\WhatNext.Communication.Web.Spotify\WhatNext.Communication.Web.Spotify.csproj" />
+    <ProjectReference Include="..\whatnext.web\WhatNext.Web.csproj" />
   </ItemGroup>
+
 </Project>
