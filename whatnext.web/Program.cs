@@ -1,8 +1,10 @@
 namespace WhatNext.Web
 {
+    using System.Diagnostics.CodeAnalysis;
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
 
+    [ExcludeFromCodeCoverage]
     public static class Program
     {
         public static void Main(string[] args)
