@@ -1,4 +1,4 @@
-﻿namespace WhatNext.Communication.Web.Spotify.Contracts.Services
+﻿namespace WhatNext.Communication.Web.Spotify.Services
 {
     using System;
     using System.Collections.Generic;
