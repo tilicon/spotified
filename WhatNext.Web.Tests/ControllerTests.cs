@@ -45,7 +45,7 @@ namespace WhatNext.Web.Tests
         [Fact]
         public async Task Given_request_for_category_list_then_should_return_all_categories()
         {
-            var clientHandler = new Mock<SpotifyClientHandler>("http://localhost", "http://remotehost", "token", "secret");
+            var clientHandler = new Mock<SpotifyClientHandler>(Mock.Of<HttpClient>(), "http://remotehost", "token", "secret");
             clientHandler                
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",
@@ -93,7 +93,7 @@ namespace WhatNext.Web.Tests
         [Fact]
         public async Task Given_list_of_categories_then_should_return_related_artists()
         {
-            var clientHandler = new Mock<SpotifyClientHandler>("http://localhost", "http://remotehost", "token", "secret");
+            var clientHandler = new Mock<SpotifyClientHandler>(Mock.Of<HttpClient>(), "http://remotehost", "token", "secret");
             clientHandler                
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",
@@ -136,7 +136,7 @@ namespace WhatNext.Web.Tests
         [Fact]
         public async Task Given_list_of_artists_then_should_return_related_tracks()
         {
-            var clientHandler = new Mock<SpotifyClientHandler>("http://localhost", "http://remotehost", "token", "secret");
+            var clientHandler = new Mock<SpotifyClientHandler>(Mock.Of<HttpClient>(), "http://remotehost", "token", "secret");
             clientHandler                
                 .Protected()
                 .Setup<Task<HttpResponseMessage>>("SendAsync",

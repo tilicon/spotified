@@ -13,30 +13,26 @@
 
     public class SpotifyClientHandler : HttpClientHandler
     {
-        private readonly HttpClient _httpClient;
+        private readonly HttpClient _authorizationClient;
         private DateTime _tokenExpiry;
         private AuthenticationHeaderValue _authenticationHeaderValue;
         private readonly string _tokenEndpoint;
 
-        public SpotifyClientHandler(string authority, string tokenEndpoint, string tokenType, string clientSecret)
+        public SpotifyClientHandler(HttpClient authorizationClient, string tokenEndpoint, string tokenType, string clientSecret)
         {
-            _httpClient = new HttpClient
-            {
-                BaseAddress = new Uri(authority),
-            };
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, clientSecret);
+            _authorizationClient = authorizationClient;
+            _authorizationClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(tokenType, clientSecret);
             _tokenEndpoint = tokenEndpoint;
         }
 
-        [ExcludeFromCodeCoverage]
         protected override async Task<HttpResponseMessage> SendAsync([NotNull]HttpRequestMessage request, CancellationToken cancellationToken)
         {
             if (_tokenExpiry < DateTime.UtcNow)
             {
-                var uri = new Uri(_httpClient.BaseAddress, _tokenEndpoint);
+                var uri = new Uri(_authorizationClient.BaseAddress, _tokenEndpoint);
                 var formContent = new[] {new KeyValuePair<string, string>("grant_type", "client_credentials")};
 
-                var response = await _httpClient.PostAsync(uri, new FormUrlEncodedContent(formContent), cancellationToken);
+                var response = await _authorizationClient.PostAsync(uri, new FormUrlEncodedContent(formContent), cancellationToken);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
                     var content = await response.Content.ReadAsStringAsync();

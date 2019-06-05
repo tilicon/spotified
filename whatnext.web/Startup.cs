@@ -37,7 +37,11 @@ namespace WhatNext.Web
             var tokenPath = Configuration.GetSection("Spotify:tokenPath").Value;
             var token = Configuration.GetSection("Spotify:token").Value;
 
-            var spotifyClientHandler = new SpotifyClientHandler(uriAccounts, tokenPath, "Basic", token);
+            var authorizationClient = new HttpClient
+            {
+                BaseAddress = new Uri(uriAccounts),
+            };
+            var spotifyClientHandler = new SpotifyClientHandler(authorizationClient, tokenPath, "Basic", token);
             var httpClient = new HttpClient(spotifyClientHandler)
             {
                 BaseAddress = uriApi,
