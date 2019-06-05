@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Net;
     using System.Net.Http;
     using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
+    using JetBrains.Annotations;
     using Newtonsoft.Json;
 
     public class SpotifyClientHandler : HttpClientHandler
@@ -26,36 +28,29 @@
             _tokenEndpoint = tokenEndpoint;
         }
 
-        protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+        [ExcludeFromCodeCoverage]
+        protected override async Task<HttpResponseMessage> SendAsync([NotNull]HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            if (request == null)
-                throw new ArgumentNullException(nameof(request));
-
-            return _();
-
-            async Task<HttpResponseMessage> _()
+            if (_tokenExpiry < DateTime.UtcNow)
             {
-                if (_tokenExpiry < DateTime.UtcNow)
+                var uri = new Uri(_httpClient.BaseAddress, _tokenEndpoint);
+                var formContent = new[] {new KeyValuePair<string, string>("grant_type", "client_credentials")};
+
+                var response = await _httpClient.PostAsync(uri, new FormUrlEncodedContent(formContent), cancellationToken);
+                if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    var uri = new Uri(_httpClient.BaseAddress, _tokenEndpoint);
-                    var formContent = new[] {new KeyValuePair<string, string>("grant_type", "client_credentials")};
+                    var content = await response.Content.ReadAsStringAsync();
+                    var responseProperties = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
+                    var ttl = int.Parse(responseProperties["expires_in"].ToString());
+                    var tokenType = responseProperties["token_type"].ToString();
+                    var token = responseProperties["access_token"].ToString();
+                    _tokenExpiry = DateTime.UtcNow.AddSeconds(ttl).AddMinutes(-1);
 
-                    var response = await _httpClient.PostAsync(uri, new FormUrlEncodedContent(formContent), cancellationToken);
-                    if (response.StatusCode == HttpStatusCode.OK)
-                    {
-                        var content = await response.Content.ReadAsStringAsync();
-                        var responseProperties = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
-                        var ttl = int.Parse(responseProperties["expires_in"].ToString());
-                        var tokenType = responseProperties["token_type"].ToString();
-                        var token = responseProperties["access_token"].ToString();
-                        _tokenExpiry = DateTime.UtcNow.AddSeconds(ttl).AddMinutes(-1);
-
-                        _authenticationHeaderValue = new AuthenticationHeaderValue(tokenType, token);
-                    }
+                    _authenticationHeaderValue = new AuthenticationHeaderValue(tokenType, token);
                 }
-                request.Headers.Authorization = _authenticationHeaderValue;
-                return await base.SendAsync(request, cancellationToken);
             }
+            request.Headers.Authorization = _authenticationHeaderValue;
+            return await base.SendAsync(request, cancellationToken);
         }
 
     }

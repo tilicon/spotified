@@ -4,12 +4,13 @@ namespace WhatNext.Communication.Web.Spotify.Tests
     using Moq;
     using Services;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
     using Contracts.Services;
+    using Moq.Protected;
     using Web.Contracts.Services;
     using Xunit;
 
@@ -114,6 +115,34 @@ namespace WhatNext.Communication.Web.Spotify.Tests
             var httpClient = new HttpClient(clientHandler);
 
             await Assert.ThrowsAsync<ArgumentNullException>(() => httpClient.SendAsync(null));
+        }
+
+        [Fact]
+        public async Task Given_a_request_then_should_call_client_handler_send_method()
+        {
+            var clientHandler = new Mock<SpotifyClientHandler>("http://localhost", "http://remotehost", "Basic", "secret");
+            clientHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>("SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent("[{'id':1,'value':'1'}]"),
+                })
+                .Verifiable();
+
+            var httpClient = new HttpClient(clientHandler.Object);
+
+            await httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Get, "http://localhost/"), CancellationToken.None);
+
+            clientHandler
+                .Protected()
+                .Verify("SendAsync", 
+                    Times.Once(), 
+                    ItExpr.Is<HttpRequestMessage>(message => message.Method == HttpMethod.Get), 
+                    ItExpr.IsAny<CancellationToken>());
         }
     }
 }

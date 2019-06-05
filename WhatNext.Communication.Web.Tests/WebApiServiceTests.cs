@@ -7,6 +7,7 @@
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
+    using Contracts.Services;
     using Moq;
     using Moq.Protected;
     using Newtonsoft.Json;
@@ -81,6 +82,34 @@
 
             Assert.Equal("1", actual.First().Id);
             Assert.Equal("1", actual.First().Value);
+        }
+
+        [Fact]
+        public void Given_disposal_of_http_objects_then_should_still_dispose_handler_only_once()
+        {
+            var httpClientHandler = new Mock<HttpMessageHandler>();
+            httpClientHandler
+                .Protected()
+                .Setup("Dispose",
+                    ItExpr.IsAny<bool>())
+                .Verifiable();
+
+            var uri = new Uri("http://localhost");
+            var httpClient = new HttpClient(httpClientHandler.Object);
+
+            using (IWebApiService webApiService = new WebApiService(uri, httpClient))
+            {
+                DisposeService(webApiService);
+            }
+
+            httpClientHandler
+                .Protected()
+                .Verify("Dispose", Times.Once(), ItExpr.Is<bool>(e => e));
+        }
+
+        private static void DisposeService(IWebApiService webApiService)
+        {
+            webApiService.Dispose();
         }
     }
 }

@@ -59,7 +59,8 @@
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposing || _isDisposed) return;
+            if (!disposing || _isDisposed) 
+                return;
 
             _httpClient?.Dispose();
             _isDisposed = true;
