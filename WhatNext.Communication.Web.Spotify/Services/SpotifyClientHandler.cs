@@ -1,5 +1,7 @@
 ﻿namespace WhatNext.Communication.Web.Spotify.Services
 {
+    using Newtonsoft.Json;
+
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -8,8 +10,6 @@
     using System.Net.Http.Headers;
     using System.Threading;
     using System.Threading.Tasks;
-    using JetBrains.Annotations;
-    using Newtonsoft.Json;
 
     public class SpotifyClientHandler : HttpClientHandler
     {
@@ -35,7 +35,7 @@
                 var response = await _authorizationClient.PostAsync(uri, new FormUrlEncodedContent(formContent), cancellationToken);
                 if (response.StatusCode == HttpStatusCode.OK)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
+                    var content = await response.Content.ReadAsStringAsync(cancellationToken);
                     var responseProperties = JsonConvert.DeserializeObject<Dictionary<string, object>>(content);
                     var ttl = int.Parse(responseProperties["expires_in"].ToString());
                     var tokenType = responseProperties["token_type"].ToString();

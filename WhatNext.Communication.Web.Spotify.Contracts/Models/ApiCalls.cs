@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace WhatNext.Communication.Web.Spotify.Contracts.Models
+﻿namespace WhatNext.Communication.Web.Spotify.Contracts.Models
 {
     public static class ApiCalls
     {

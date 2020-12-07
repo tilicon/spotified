@@ -1,13 +1,15 @@
 ﻿namespace WhatNext.Communication.Web.Services
 {
     using Contracts.Services;
+
     using Newtonsoft.Json;
+
     using System;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class WebApiService : IWebApiService
+    public sealed class WebApiService : IWebApiService
     {
         private readonly HttpClient _httpClient;
         private readonly UriBuilder _uriBuilder;
@@ -24,7 +26,7 @@
             var uri = MakeUri(path, query);
             var result = await _httpClient.GetAsync(uri, cancellationToken);
 
-            var data = await result.Content.ReadAsStringAsync();
+            var data = await result.Content.ReadAsStringAsync(cancellationToken);
             return GenerateWebResult<T>(data, result);
         }
 
@@ -36,7 +38,7 @@
             return _uriBuilder.Uri;
         }
 
-        private T GenerateWebResult<T>(string data, HttpResponseMessage result)
+        private static T GenerateWebResult<T>(string data, HttpResponseMessage result)
         {
             result.EnsureSuccessStatusCode();
 
@@ -57,7 +59,7 @@
             GC.SuppressFinalize(this);
         }
 
-        protected virtual void Dispose(bool disposing)
+        private void Dispose(bool disposing)
         {
             if (!disposing || _isDisposed) 
                 return;

@@ -1,21 +1,27 @@
 namespace WhatNext.Web
 {
     using AutoMapper;
+
     using Communication.Web.Contracts.Services;
+    using Communication.Web.Services;
     using Communication.Web.Spotify.Contracts.Services;
+    using Communication.Web.Spotify.Services;
+
     using JetBrains.Annotations;
+
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SpaServices.AngularCli;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     using Music.Contracts.Services;
     using Music.Services;
+
     using System;
     using System.Net.Http;
-    using Communication.Web.Services;
-    using Communication.Web.Spotify.Services;
 
     [UsedImplicitly]
     public class Startup
@@ -30,7 +36,7 @@ namespace WhatNext.Web
         [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             var uriApi = new Uri(Configuration.GetSection("Spotify:ApiUri").Value);
             var uriAccounts = Configuration.GetSection("Spotify:AccountsUri").Value;
@@ -59,7 +65,7 @@ namespace WhatNext.Web
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         [UsedImplicitly]
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -76,11 +82,13 @@ namespace WhatNext.Web
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>

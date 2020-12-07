@@ -1,27 +1,35 @@
 namespace WhatNext.Web.Tests
 {
+    using AutoMapper;
+
+    using Communication.Web.Services;
+    using Communication.Web.Spotify.Contracts.Models;
+    using Communication.Web.Spotify.Services;
+
+    using Controllers;
+
+    using Mapper;
+
+    using Moq;
+    using Moq.Protected;
+
+    using Music.Contracts.Mapper;
+    using Music.Contracts.Services;
+    using Music.Services;
+
+    using Newtonsoft.Json;
+
+    using Shouldly;
+
     using System;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Threading;
     using System.Threading.Tasks;
-    using AutoMapper;
-    using Communication.Web.Services;
-    using Communication.Web.Spotify.Contracts.Models;
-    using Communication.Web.Spotify.Contracts.Services;
-    using Communication.Web.Spotify.Services;
-    using Controllers;
-    using Mapper;
-    using Moq;
-    using Moq.Protected;
-    using Music.Contracts.Mapper;
-    using Music.Contracts.Services;
-    using Music.Services;
-    using Newtonsoft.Json;
-    using Shouldly;
+
     using Xunit;
-    
+
     public class ControllerTests
     {
         private readonly IMapper _mapper;
