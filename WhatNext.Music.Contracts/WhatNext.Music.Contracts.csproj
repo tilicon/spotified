@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <ProjectGuid>{CBE2C279-A1D4-4536-A7B5-AEEFC9EDE777}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -10,9 +10,9 @@
     <CodeAnalysisRuleSet>WhatNext.Music.Contracts.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="8.1.0" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WhatNext.Communication.Web.Spotify.Contracts\WhatNext.Communication.Web.Spotify.Contracts.csproj" />
